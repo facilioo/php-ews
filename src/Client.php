@@ -184,7 +184,7 @@ class Client
 
 	public function authWithOauth2($token) {
 
-        $this->setOath2Token($token);
+        $this->setOauth2Token($token);
 
 	}
 
@@ -260,7 +260,7 @@ class Client
      *
      * @param string $token
      */
-    public function setOath2Token($token)
+    public function setOauth2Token($token)
     {
         $this->token = $token;
 
@@ -1651,7 +1651,7 @@ class Client
 
 		}
 
-        $this->soap = new Oath2Soap(
+        $this->soap = new Oauth2Soap(
             dirname(__FILE__) . '/assets/services.wsdl',
             $authArray
         );
@@ -1763,7 +1763,7 @@ class Client
 
 
 
-class Oath2Soap extends \SoapClient 
+class Oauth2Soap extends \SoapClient 
 {
     /**
      * cURL resource used to make the SOAP request
