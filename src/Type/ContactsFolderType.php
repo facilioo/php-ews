@@ -12,6 +12,9 @@ namespace jamesiarmes\PhpEws\Type;
  */
 class ContactsFolderType extends BaseFolderType
 {
+
+	public $SourceId;
+	
     /**
      * Contains all the configured permissions for a folder.
      *

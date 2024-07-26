@@ -12,6 +12,11 @@ namespace jamesiarmes\PhpEws\Type;
  */
 class MessageType extends ItemType
 {
+
+	public $Flag;
+	public $EntityExtractionResult;
+	public $InstanceKey;
+
     /**
      * Represents a collection of recipients to receive a blind carbon copy
      * (Bcc) of an e-mail.

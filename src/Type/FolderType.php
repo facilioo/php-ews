@@ -12,6 +12,9 @@ namespace jamesiarmes\PhpEws\Type;
  */
 class FolderType extends BaseFolderType
 {
+
+	public $PolicyTag;
+	
     /**
      * Contains all the configured permissions for a folder.
      *
