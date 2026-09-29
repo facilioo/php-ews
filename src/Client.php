@@ -184,7 +184,7 @@ class Client
 
 	public function authWithOauth2($token) {
 
-        $this->setOath2Token($token);
+        $this->setOauth2Token($token);
 
 	}
 
@@ -256,11 +256,11 @@ class Client
     }
 
     /**
-     * Sets the oath2 token
+     * Sets the ouath2 token
      *
      * @param string $token
      */
-    public function setOath2Token($token)
+    public function setOauth2Token($token)
     {
         $this->token = $token;
 
@@ -1637,21 +1637,21 @@ class Client
 			'classmap' => $this->classMap(),
 			'curlopts' => $this->curl_options,
 			'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
-		); 
+		);
 
 		if(!empty($this->token)) {
 
-			$authArray["token"] = $this->token; 
+			$authArray["token"] = $this->token;
 
 		}
 		else {
 
-			$authArray["user"] = $this->username; 
-			$authArray["password"] = $this->password; 
+			$authArray["user"] = $this->username;
+			$authArray["password"] = $this->password;
 
 		}
 
-        $this->soap = new Oath2Soap(
+        $this->soap = new Oauth2Soap(
             dirname(__FILE__) . '/assets/services.wsdl',
             $authArray
         );
@@ -1763,7 +1763,7 @@ class Client
 
 
 #[\AllowDynamicProperties]
-class Oath2Soap extends \SoapClient 
+class Oauth2Soap extends \SoapClient
 {
     /**
      * cURL resource used to make the SOAP request
@@ -1814,7 +1814,7 @@ class Oath2Soap extends \SoapClient
     /**
      * {@inheritdoc}
      */
-    public function __doRequest($request, $location, $action, $version, $one_way = 0): ?string
+    public function __doRequest(string $request, string $location, string $action, int $version, ?bool $oneWay = false, ?string $uriParserClass = null): ?string
     {
         $headers = $this->buildHeaders($action);
         $this->__last_request = $request;
@@ -1885,7 +1885,7 @@ class Oath2Soap extends \SoapClient
 
 		if(!is_null($this->options['token'])) $headers[] = sprintf("Authorization: Bearer %s", $this->options['token']);
 
-		return $headers; 
+		return $headers;
     }
 
     /**
@@ -1931,19 +1931,19 @@ class Oath2Soap extends \SoapClient
      */
     protected function curlOptions($action, $request)
     {
-        $options = 
-			$this->options['curlopts'] + 
+        $options =
+			$this->options['curlopts'] +
 			array(
 				CURLOPT_SSL_VERIFYPEER => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_HTTPHEADER => $this->buildHeaders($action),
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_HTTPAUTH => ((!empty($this->options['token'])) ? CURLAUTH_BEARER : CURLAUTH_ANY)
-			); 
+			);
 
 		if(!empty($this->options['user']) && !empty($this->options['password'])) {
 
-			$options[CURLOPT_USERPWD] = $this->options['user'] . ':' . $this->options['password']; 
+			$options[CURLOPT_USERPWD] = $this->options['user'] . ':' . $this->options['password'];
 
 		}
 
